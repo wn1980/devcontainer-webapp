@@ -1,6 +1,7 @@
 {
-    "name": "Miniconda Development (Ubuntu with Dockerfile)",
+    "name": "Miniconda Dev Container",
     "build": {
+      "image": "wn1980/miniconda3-devcontainer",
       "dockerfile": "Dockerfile",
       "args": {
         "VARIANT": "3" // Python 3.x, adjust as needed
@@ -11,8 +12,9 @@
     "customizations": {
       "vscode": {
         "extensions": [
-          "ms-python.python",
-          "ms-python.vscode-pylance"
+            "ms-python.python",
+            "ms-python.vscode-pylance",
+            "google.geminicodeassist"
         ],
         "settings": {
           "python.defaultInterpreterPath": "/opt/conda/bin/python"

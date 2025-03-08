@@ -26,10 +26,6 @@ RUN wget ${MINICONDA_INSTALLER_URL} && \
     rm ${MINICONDA_INSTALLER_SCRIPT} && \
     /opt/conda/bin/conda update conda -y
 
-# Add conda to PATH and set default shell
-ENV PATH="/opt/conda/bin:${PATH}"
-SHELL ["/bin/bash", "-c"]
-
 # Create vscode user.
 ARG USERNAME=developer
 ARG USER_UID=1000
@@ -39,9 +35,15 @@ RUN useradd -m $USERNAME \
     && usermod -aG sudo developer \
     && echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer \
     && chmod 0440 /etc/sudoers.d/developer \
+    && mkdir -p /home/developer/.conda \
+    && chown -R developer:developer /home/developer/.conda \
     && mkdir -p /workspace \
     && chown -R developer:developer /workspace \
     && ln -sfn /workspace /home/developer/workspace
+
+    # Add conda to PATH and set default shell
+ENV PATH="/opt/conda/bin:/home/developer/.local/bin:${PATH}"
+SHELL ["/bin/bash", "-c"]
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
@@ -53,3 +55,5 @@ RUN conda init bash && conda config --set auto_activate_base false && \
     # https://superuser.com/questions/555310/bash-save-history-without-exit
     echo -e "export PROMPT_COMMAND='history -a'" >> ~/.bashrc && \
     echo -e "source ~/.bashrc" >> ~/.bash_profile 
+
+# VOLUME [ "/workspace", "/home/developer/.conda" ]
