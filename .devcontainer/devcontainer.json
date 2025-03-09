@@ -1,5 +1,5 @@
 {
-    "name": "Miniconda Dev Container",
+    "name": "Miniconda3",
     "build": {
       "image": "wn1980/miniconda3-devcontainer",
       "dockerfile": "Dockerfile",
@@ -7,7 +7,7 @@
         "VARIANT": "3" // Python 3.x, adjust as needed
       }
     },
-    "workspaceMount": "source=python_dev,target=/workspace,type=volume",
+    "workspaceMount": "source=webapp_ws,target=/workspace,type=volume",
     "workspaceFolder": "/workspace",
     "customizations": {
       "vscode": {
