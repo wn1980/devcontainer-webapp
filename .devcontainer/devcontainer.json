@@ -14,7 +14,8 @@
         "extensions": [
             "ms-python.python",
             "ms-python.vscode-pylance",
-            "google.geminicodeassist"
+            "google.geminicodeassist",
+            "ms-vscode.live-server"
         ],
         "settings": {
           "python.defaultInterpreterPath": "/opt/conda/bin/python"
@@ -22,6 +23,7 @@
       }
     },
     //"postCreateCommand": "conda init bash && conda config --set auto_activate_base false",
+    "runArgs": ["--name", "Miniconda3"],
     "remoteUser": "ubuntu"
   }
   
