@@ -1,10 +1,11 @@
 # Use the official Ubuntu base image
-FROM ubuntu:latest
+FROM --platform=linux/x86-64 ubuntu:latest
 
 # Install necessary system packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y install --no-install-recommends \
         wget \
+        curl \
         bzip2 \
         ca-certificates \
         gnupg \
@@ -54,6 +55,6 @@ RUN conda init bash && conda config --set auto_activate_base false && \
     echo -e "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     # https://superuser.com/questions/555310/bash-save-history-without-exit
     echo -e "export PROMPT_COMMAND='history -a'" >> ~/.bashrc && \
-    echo -e "source ~/.bashrc" >> ~/.bash_profile 
+    echo -e "source ~/.bashrc" >> ~/.bash_profile
 
 # VOLUME [ "/workspace", "/home/${USERNAME}/.conda" ]
