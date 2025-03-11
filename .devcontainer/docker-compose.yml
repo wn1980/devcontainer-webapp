@@ -1,0 +1,21 @@
+version: '3.8'
+
+volumes:
+  config:
+  webapp_ws:
+    external: true
+
+services:
+  webapp:
+    image: wn1980/webapp-devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Miniconda3
+    command: /bin/sh -c "while sleep 1000; do :; done"  #keep container from exiting.
+    user: "ubuntu"
+    volumes:
+      - webapp_ws:/workspace:cached
+      - config:/home/ubuntu/.config:rw
+    # ports:
+    #   - 5001:5001

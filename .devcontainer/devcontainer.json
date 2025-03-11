@@ -1,14 +1,17 @@
 {
-    "name": "Miniconda3",
-    "build": {
-      "image": "wn1980/miniconda3-devcontainer",
-      "dockerfile": "Dockerfile",
-      "args": {
-        "VARIANT": "3" // Python 3.x, adjust as needed
-      }
-    },
-    "workspaceMount": "source=webapp_ws,target=/workspace,type=volume",
+    "name": "Web Dev",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "webapp",
+    // "build": {
+    //   "image": "wn1980/miniconda3-devcontainer",
+    //   "dockerfile": "Dockerfile",
+    //   "args": {
+    //     "VARIANT": "3" // Python 3.x, adjust as needed
+    //   }
+    // },
+    // "workspaceMount": "source=webapp_ws,target=/workspace,type=volume",
     "workspaceFolder": "/workspace",
+
     "customizations": {
       "vscode": {
         "extensions": [
@@ -22,8 +25,9 @@
         }
       }
     },
-    //"postCreateCommand": "conda init bash && conda config --set auto_activate_base false",
-    "runArgs": ["--name", "Miniconda3"],
-    "remoteUser": "ubuntu"
+    
+    // "postCreateCommand": "conda init bash && conda config --set auto_activate_base false",
+    // "runArgs": ["--name", "Miniconda3"],
+    // "remoteUser": "ubuntu"
   }
   
