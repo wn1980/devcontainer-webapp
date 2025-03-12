@@ -2,6 +2,7 @@ version: '3.8'
 
 volumes:
   config:
+  conda:
   webapp_ws:
     external: true
 
@@ -16,6 +17,7 @@ services:
     user: "ubuntu"
     volumes:
       - webapp_ws:/workspace:cached
+      - conda:/home/ubuntu/.conda:cached
       - config:/home/ubuntu/.config:rw
     # ports:
     #   - 5001:5001

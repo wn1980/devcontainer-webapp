@@ -32,6 +32,16 @@ RUN wget ${MINICONDA_INSTALLER_URL} && \
     rm ${MINICONDA_INSTALLER_SCRIPT} && \
     /opt/conda/bin/conda update conda -y
 
+# Add conda to PATH and set default shell
+ENV PATH="/opt/conda/bin:/home/${USERNAME}/.local/bin:${PATH}"
+SHELL ["/bin/bash", "-c"]
+
+# install ngrok
+RUN curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
+    tar -xvzf ./ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin && \
+    rm -rf ./ngrok-v3-stable-linux-amd64.tgz && \
+    ngrok --version 
+
 # Create vscode user.
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
@@ -49,17 +59,13 @@ RUN echo "Creating user: ${USERNAME}" && \
     mkdir -p /workspace && \
     chown -R ${USERNAME}:${USERNAME} /workspace && \
     ln -sfn /workspace /home/${USERNAME}/workspace
-
-    # Add conda to PATH and set default shell
-ENV PATH="/opt/conda/bin:/home/${USERNAME}/.local/bin:${PATH}"
-SHELL ["/bin/bash", "-c"]
-
+    
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
 # install nodejs
 # Download and install nvm:
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
+    RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
     # in lieu of restarting the shell
     \. "$HOME/.nvm/nvm.sh" && \ 
     # Download and install Node.js:
@@ -74,20 +80,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
     # Should print "10.9.2".
     npm install -g firebase-tools && \
     npm install -g typescript
-
-# install ngrok
-# RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc && \
-#     sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && \
-#     echo "deb https://ngrok-agent.s3.amazonaws.com buster main" && \
-#     sudo tee /etc/apt/sources.list.d/ngrok.list && \
-#     sudo apt update && sudo apt install ngrok \
-#     && apt-get autoremove -y \
-#     && apt-get clean \
-#     && rm -rf /var/lib/apt/lists/*
-RUN curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
-    sudo tar -xvzf ./ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin && \
-    ngrok --version 
-
+    
 # enable bash completion
 RUN conda init bash && conda config --set auto_activate_base false && \
     echo -e "\n################### Docker config. ###################" >> ~/.bashrc && \

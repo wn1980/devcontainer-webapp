@@ -18,7 +18,8 @@
             "ms-python.python",
             "ms-python.vscode-pylance",
             "google.geminicodeassist",
-            "ms-vscode.live-server"
+            "ms-vscode.live-server",
+            "Postman.postman-for-vscode"
         ],
         "settings": {
           "python.defaultInterpreterPath": "/opt/conda/bin/python"
