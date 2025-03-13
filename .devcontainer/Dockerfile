@@ -16,10 +16,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
         ffmpeg \
         alsa-utils \
         libasound2-dev \
-        portaudio19-dev \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        portaudio19-dev
+    # && apt-get autoremove -y \
+    # && apt-get clean \
+    # && rm -rf /var/lib/apt/lists/*
 
 # Download and install Miniconda
 ARG VARIANT=3 # Python 3.x, adjust as needed.
@@ -41,6 +41,17 @@ RUN curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
     tar -xvzf ./ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin && \
     rm -rf ./ngrok-v3-stable-linux-amd64.tgz && \
     ngrok --version 
+
+RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    apt install nodejs -y && \
+    rm -rf nodesource_setup.sh && \
+    node -v && \
+    npm -v && \
+    npm install -g firebase-tools && \
+    npm install -g typescript && \
+    npm install -g mkcert && \
+    npm install -g nodemon
 
 # Create vscode user.
 ARG USERNAME=ubuntu
@@ -65,21 +76,21 @@ WORKDIR /home/${USERNAME}
 
 # install nodejs
 # Download and install nvm:
-    RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
-    # in lieu of restarting the shell
-    \. "$HOME/.nvm/nvm.sh" && \ 
-    # Download and install Node.js:
-    nvm install 22 && \
-    # Verify the Node.js version:
-    node -v && \
-    # Should print "v22.14.0". 
-    nvm current && \
-    # Should print "v22.14.0".
-    # Verify npm version:
-    npm -v && \
-    # Should print "10.9.2".
-    npm install -g firebase-tools && \
-    npm install -g typescript
+    # RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
+    # # in lieu of restarting the shell
+    # \. "$HOME/.nvm/nvm.sh" && \ 
+    # # Download and install Node.js:
+    # nvm install 22 && \
+    # # Verify the Node.js version:
+    # node -v && \
+    # # Should print "v22.14.0". 
+    # nvm current && \
+    # # Should print "v22.14.0".
+    # # Verify npm version:
+    # npm -v && \
+    # # Should print "10.9.2".
+    # npm install -g firebase-tools && \
+    # npm install -g typescript
     
 # enable bash completion
 RUN conda init bash && conda config --set auto_activate_base false && \
@@ -90,3 +101,8 @@ RUN conda init bash && conda config --set auto_activate_base false && \
     echo -e "source ~/.bashrc" >> ~/.bash_profile
 
 # VOLUME [ "/workspace", "/home/${USERNAME}/.conda" ]
+
+# clean
+RUN sudo apt autoremove -y && \
+    sudo apt clean && \
+    sudo rm -rf /var/lib/apt/lists/*
