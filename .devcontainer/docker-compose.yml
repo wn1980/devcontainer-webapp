@@ -12,7 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: Miniconda3
+    container_name: webapp
     command: /bin/sh -c "while sleep 1000; do :; done"  #keep container from exiting.
     user: "ubuntu"
     volumes:
