@@ -1,5 +1,5 @@
 # Use the official Ubuntu base image
-FROM --platform=linux/x86-64 ubuntu:latest
+FROM --platform=linux/x86-64 ubuntu:24.04
 
 # Install necessary system packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
@@ -42,6 +42,7 @@ RUN curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
     rm -rf ./ngrok-v3-stable-linux-amd64.tgz && \
     ngrok --version 
 
+# install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     apt install nodejs -y && \
@@ -73,24 +74,6 @@ RUN echo "Creating user: ${USERNAME}" && \
     
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
-
-# install nodejs
-# Download and install nvm:
-    # RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
-    # # in lieu of restarting the shell
-    # \. "$HOME/.nvm/nvm.sh" && \ 
-    # # Download and install Node.js:
-    # nvm install 22 && \
-    # # Verify the Node.js version:
-    # node -v && \
-    # # Should print "v22.14.0". 
-    # nvm current && \
-    # # Should print "v22.14.0".
-    # # Verify npm version:
-    # npm -v && \
-    # # Should print "10.9.2".
-    # npm install -g firebase-tools && \
-    # npm install -g typescript
     
 # enable bash completion
 RUN conda init bash && conda config --set auto_activate_base false && \
