@@ -49,6 +49,7 @@ RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
     rm -rf nodesource_setup.sh && \
     node -v && \
     npm -v && \
+    npm install -g n8n && \
     npm install -g firebase-tools && \
     npm install -g typescript && \
     npm install -g mkcert && \
@@ -64,6 +65,8 @@ RUN echo "Creating user: ${USERNAME}" && \
     echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME} && \
     usermod --shell /bin/bash ${USERNAME} && \
+    mkdir -p /home/${USERNAME}/.n8n && \
+    chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.n8n && \
     mkdir -p /home/${USERNAME}/.conda && \
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.conda && \
     mkdir -p /home/${USERNAME}/.config && \
