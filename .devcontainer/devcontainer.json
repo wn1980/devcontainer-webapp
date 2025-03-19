@@ -19,7 +19,10 @@
             "ms-python.vscode-pylance",
             "google.geminicodeassist",
             "Postman.postman-for-vscode",
-            "ritwickdey.LiveServer"
+            "ritwickdey.LiveServer",
+            "esbenp.prettier-vscode",
+            "dbaeumer.vscode-eslint",
+            "EditorConfig.EditorConfig"
         ],
         "settings": {
           "python.defaultInterpreterPath": "/opt/conda/bin/python"
