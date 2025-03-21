@@ -50,6 +50,7 @@ RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
     node -v && \
     npm -v && \
     npm install -g n8n && \
+    npm install -g pnpm && \
     npm install -g firebase-tools && \
     npm install -g typescript && \
     npm install -g mkcert && \
