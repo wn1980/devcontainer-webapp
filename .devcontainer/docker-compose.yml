@@ -22,5 +22,14 @@ services:
       - n8n_data:/home/ubuntu/.n8n:cached
       - conda:/home/ubuntu/.conda:cached
       - config:/home/ubuntu/.config:rw
+    environment:
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+      - N8N_TEMPLATES_ENABLED=false
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_DIAGNOSTICS_CONFIG_FRONTEND=
+      - N8N_DIAGNOSTICS_CONFIG_BACKEND=
+      - EXTERNAL_FRONTEND_HOOKS_URLS=
     # ports:
     #   - 5001:5001
