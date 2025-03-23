@@ -3,7 +3,8 @@ version: '3.8'
 volumes:
   config:
   conda:
-  n8n:
+  n8n_data:
+    external: true
   webapp_ws:
     external: true
 
@@ -18,7 +19,7 @@ services:
     user: "ubuntu"
     volumes:
       - webapp_ws:/workspace:cached
-      - n8n:/home/ubuntu/.n8n:cached
+      - n8n_data:/home/ubuntu/.n8n:cached
       - conda:/home/ubuntu/.conda:cached
       - config:/home/ubuntu/.config:rw
     # ports:

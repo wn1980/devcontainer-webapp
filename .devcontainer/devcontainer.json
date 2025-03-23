@@ -17,7 +17,6 @@
         "extensions": [
             "ms-python.python",
             "ms-python.vscode-pylance",
-            "google.geminicodeassist",
             "Postman.postman-for-vscode",
             "ritwickdey.LiveServer",
             "esbenp.prettier-vscode",
