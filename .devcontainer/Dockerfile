@@ -49,6 +49,7 @@ RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
     rm -rf nodesource_setup.sh && \
     node -v && \
     npm -v && \
+    npm install -g @railway/cli && \
     npm install -g n8n && \
     npm install -g pnpm && \
     npm install -g firebase-tools && \
@@ -86,8 +87,6 @@ RUN conda init bash && conda config --set auto_activate_base false && \
     # https://superuser.com/questions/555310/bash-save-history-without-exit
     echo -e "export PROMPT_COMMAND='history -a'" >> ~/.bashrc && \
     echo -e "source ~/.bashrc" >> ~/.bash_profile
-
-# VOLUME [ "/workspace", "/home/${USERNAME}/.conda" ]
 
 # clean
 RUN sudo apt autoremove -y && \
